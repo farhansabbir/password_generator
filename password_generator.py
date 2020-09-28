@@ -1,7 +1,11 @@
 
 import random
 import string
-TOTAL_PASSWORD_LENGTH = 20
+import sys
+if len(sys.argv) < 2 or int(sys.argv[1]) < 8:
+    print("Need argument or argument must be larger than 8")
+    sys.exit(1)
+TOTAL_PASSWORD_LENGTH = int(sys.argv[1])
 REMAINING = TOTAL_PASSWORD_LENGTH
 
 def getRandomList(length, the_list):

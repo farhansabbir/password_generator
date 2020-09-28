@@ -1,4 +1,5 @@
 
+#!/bin/env python3
 import random
 import string
 import sys

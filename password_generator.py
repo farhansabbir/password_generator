@@ -1,5 +1,5 @@
 
-#!/bin/env python3
+#!/usr/bin/env python3
 import random
 import string
 import sys
@@ -33,12 +33,27 @@ def generatePassword():
     SPECIALS = list(string.punctuation)
     DIGITS = list(string.digits)
 
-    FINAL = getRandomList(TOTAL_UPPER_LENGTH,UPPER) + \
+    TEMP = getRandomList(TOTAL_UPPER_LENGTH,UPPER) + \
             getRandomList(TOTAL_LOWER_LENGTH,LOWER) + \
             getRandomList(TOTAL_SPECIAL_LENGTH,SPECIALS) + \
             getRandomList(TOTAL_DIGIT_LENGTH,DIGITS)
-    for i in range((int(random.random()*100))):
-        random.shuffle(FINAL)
+    random.shuffle(TEMP)
+    FINAL = list()
+    previous = ''
+    for i in TEMP:
+        if i==previous:
+            if (i in UPPER):
+                i = getRandomList(1,UPPER)[0]
+            if (i in SPECIALS):
+                i = getRandomList(1,SPECIALS)[0]
+            if (i in DIGITS):
+                i = getRandomList(1,DIGITS)[0]
+            if (i in LOWER):
+                i = getRandomList(1,LOWER)[0]
+            FINAL.append(i)
+        else:
+            FINAL.append(i)
+        previous = i
     return "".join(FINAL)
 
 if __name__ == "__main__":

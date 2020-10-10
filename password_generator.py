@@ -3,10 +3,15 @@
 import random
 import string
 import sys
-if len(sys.argv) < 2 or int(sys.argv[1]) < 8:
-    print("Need argument or argument must be larger than 8")
-    sys.exit(1)
-TOTAL_PASSWORD_LENGTH = int(sys.argv[1])
+if len(sys.argv) < 2:
+    TOTAL_PASSWORD_LENGTH = 10
+else:
+    if int(sys.argv[1]) < 10:
+        print("Need argument or argument must be larger than 10")
+        sys.exit(1)
+    TOTAL_PASSWORD_LENGTH = int(sys.argv[1])
+
+
 REMAINING = TOTAL_PASSWORD_LENGTH
 
 def getRandomList(length, the_list):
@@ -40,20 +45,26 @@ def generatePassword():
     random.shuffle(TEMP)
     FINAL = list()
     previous = ''
-    for i in TEMP:
-        if i==previous:
-            if (i in UPPER):
-                i = getRandomList(1,UPPER)[0]
-            if (i in SPECIALS):
-                i = getRandomList(1,SPECIALS)[0]
-            if (i in DIGITS):
-                i = getRandomList(1,DIGITS)[0]
-            if (i in LOWER):
-                i = getRandomList(1,LOWER)[0]
-            FINAL.append(i)
-        else:
-            FINAL.append(i)
-        previous = i
+    BREAKOUT = False
+    while not BREAKOUT:
+        for i in TEMP:
+            if i==previous:
+                if (i in UPPER):
+                    i = getRandomList(1,UPPER)[0]
+                elif (i in SPECIALS):
+                    i = getRandomList(1,SPECIALS)[0]
+                elif (i in DIGITS):
+                    i = getRandomList(1,DIGITS)[0]
+                elif (i in LOWER):
+                    i = getRandomList(1,LOWER)[0]
+                FINAL.append(i)
+                if len(FINAL) == TOTAL_PASSWORD_LENGTH:
+                    BREAKOUT = True
+            else:
+                FINAL.append(i)
+                if len(FINAL) == TOTAL_PASSWORD_LENGTH:
+                    BREAKOUT = True
+            previous = i
     return "".join(FINAL)
 
 if __name__ == "__main__":

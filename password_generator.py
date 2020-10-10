@@ -3,11 +3,12 @@
 import random
 import string
 import sys
+MIN_PASSWORD_LENGTH = 12
 if len(sys.argv) < 2:
-    TOTAL_PASSWORD_LENGTH = 10
+    TOTAL_PASSWORD_LENGTH = MIN_PASSWORD_LENGTH
 else:
-    if int(sys.argv[1]) < 10:
-        print("Need argument or argument must be larger than 10")
+    if int(sys.argv[1]) < MIN_PASSWORD_LENGTH:
+        print("Weak password length provided. Must be larger than " + str(MIN_PASSWORD_LENGTH))
         sys.exit(1)
     TOTAL_PASSWORD_LENGTH = int(sys.argv[1])
 

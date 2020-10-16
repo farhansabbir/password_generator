@@ -46,26 +46,21 @@ def generatePassword():
     random.shuffle(TEMP)
     FINAL = list()
     previous = ''
-    BREAKOUT = False
-    while not BREAKOUT:
-        for i in TEMP:
-            if i==previous:
-                if (i in UPPER):
-                    i = getRandomList(1,UPPER)[0]
-                elif (i in SPECIALS):
-                    i = getRandomList(1,SPECIALS)[0]
-                elif (i in DIGITS):
-                    i = getRandomList(1,DIGITS)[0]
-                elif (i in LOWER):
-                    i = getRandomList(1,LOWER)[0]
-                FINAL.append(i)
-                if len(FINAL) == TOTAL_PASSWORD_LENGTH:
-                    BREAKOUT = True
+    while len(FINAL) != TOTAL_PASSWORD_LENGTH:
+        for character in TEMP:
+            if character==previous:
+                if (character in UPPER):
+                    character = getRandomList(1,UPPER)[0]
+                elif (character in SPECIALS):
+                    character = getRandomList(1,SPECIALS)[0]
+                elif (character in DIGITS):
+                    character = getRandomList(1,DIGITS)[0]
+                elif (character in LOWER):
+                    character = getRandomList(1,LOWER)[0]
+                FINAL.append(character)
             else:
-                FINAL.append(i)
-                if len(FINAL) == TOTAL_PASSWORD_LENGTH:
-                    BREAKOUT = True
-            previous = i
+                FINAL.append(character)
+            previous = character
     return "".join(FINAL)
 
 if __name__ == "__main__":
